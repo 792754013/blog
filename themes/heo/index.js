@@ -43,6 +43,7 @@ import SideRight from './components/SideRight'
 import CONFIG from './config'
 import { Style } from './style'
 import AISummary from '@/components/AISummary'
+import { SignIn, SignUp } from '@clerk/nextjs'
 
 /**
  * 基础布局 采用上中下布局，移动端使用顶部侧边导航栏
@@ -307,7 +308,7 @@ const LayoutSlug = props => {
               <section
                 className='wow fadeInUp p-5 justify-center mx-auto'
                 data-wow-delay='.2s'>
-                <AISummary aiSummary={post.aiSummary}/>
+                <AISummary aiSummary={post.aiSummary} />
                 <WWAds orientation='horizontal' className='w-full' />
                 {post && <NotionPage post={post} />}
                 <WWAds orientation='horizontal' className='w-full' />
@@ -498,8 +499,53 @@ const LayoutTagIndex = props => {
   )
 }
 
+/**
+ * 登录页面
+ * @param {*} props
+ * @returns
+ */
+const LayoutSignIn = props => {
+  return (
+    <>
+      <div className='grow mt-20'>
+        {/* clerk预置表单 */}
+        <div className='flex justify-center py-6'>
+          <SignIn />
+        </div>
+      </div>
+    </>
+  )
+}
+
+/**
+ * 注册页面
+ * @param {*} props
+ * @returns
+ */
+const LayoutSignUp = props => {
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+
+  const title = siteConfig('STARTER_SIGNIN', '注册')
+  const description = siteConfig(
+    'STARTER_SIGNIN_DESCRITION',
+    '这里是演示页面，NotionNext目前不提供会员注册功能'
+  )
+  return (
+    <>
+      <div className='grow mt-20'>
+        {/* clerk预置表单 */}
+        <div className='flex justify-center py-6'>
+          <SignUp />
+        </div>
+      </div>
+    </>
+  )
+}
+
 export {
   Layout404,
+  LayoutSignUp,
+  LayoutSignIn,
   LayoutArchive,
   LayoutBase,
   LayoutCategoryIndex,

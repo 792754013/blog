@@ -10,6 +10,9 @@ import RandomPostButton from './RandomPostButton'
 import ReadingProgress from './ReadingProgress'
 import SearchButton from './SearchButton'
 import SlideOver from './SlideOver'
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import Link from 'next/link'
+import DashboardButton from '@/components/ui/dashboard/DashboardButton'
 
 /**
  * 页头：顶部导航
@@ -21,6 +24,8 @@ const Header = props => {
   const [textWhite, setTextWhite] = useState(false)
   const [navBgWhite, setBgWhite] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+
+  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
   const router = useRouter()
   const slideOverRef = useRef()
@@ -166,7 +171,37 @@ const Header = props => {
           </div>
 
           {/* 右侧固定 */}
-          <div className='flex flex-shrink-0 justify-end items-center w-48'>
+          <div className='flex flex-shrink-0 justify-end items-center'>
+            {/* 注册登录功能 */}
+            {enableClerk && (
+              <div className='mr-2'>
+                <SignedOut>
+                  <div className='flex gap-4 '>
+                    <SignInButton mode='modal'>
+                      <div>
+                        <button className='bg-green-500 hidden sm:block hover:bg-green-600 text-white rounded-lg px-3 py-2'>
+                          {siteConfig('STARTER_NAV_BUTTON_1_TEXT')}
+                        </button>
+
+                        <div className='hidden max-sm:flex cursor-pointer hover:bg-black hover:bg-opacity-10 rounded-full w-10 h-10 justify-center items-center duration-200 transition-all'>
+                          <i className="fa-solid fa-sign-in" />
+                        </div>
+                      </div>
+                    </SignInButton>
+                    <SignUpButton mode='modal'>
+                      <button className='hover:text-white hidden sm:flex hover:bg-gray-800 border rounded-lg px-3 py-2'>
+                        {siteConfig('STARTER_NAV_BUTTON_2_TEXT')}
+                      </button>
+                    </SignUpButton>
+                  </div>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                  <DashboardButton className={'hidden md:block'} />
+                </SignedIn>
+              </div>
+            )}
+
             <RandomPostButton {...props} />
             <SearchButton {...props} />
             {!JSON.parse(siteConfig('THEME_SWITCH')) && (
@@ -174,6 +209,7 @@ const Header = props => {
                 <DarkModeButton {...props} />
               </div>
             )}
+
             <ReadingProgress />
 
             {/* 移动端菜单按钮 */}

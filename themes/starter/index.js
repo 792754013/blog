@@ -468,8 +468,7 @@ const LayoutSignIn = props => {
   const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
   const title = siteConfig('STARTER_SIGNIN', '登录')
   const description = siteConfig(
-    'STARTER_SIGNIN_DESCRITION',
-    '这里是演示页面，NotionNext目前不提供会员登录功能'
+    'STARTER_SIGNIN_DESCRITION',    '这里是登录'
   )
   return (
     <>
