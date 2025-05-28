@@ -499,53 +499,8 @@ const LayoutTagIndex = props => {
   )
 }
 
-/**
- * 登录页面
- * @param {*} props
- * @returns
- */
-const LayoutSignIn = props => {
-  return (
-    <>
-      <div className='grow mt-20'>
-        {/* clerk预置表单 */}
-        <div className='flex justify-center py-6'>
-          <SignIn />
-        </div>
-      </div>
-    </>
-  )
-}
-
-/**
- * 注册页面
- * @param {*} props
- * @returns
- */
-const LayoutSignUp = props => {
-  const enableClerk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-
-  const title = siteConfig('STARTER_SIGNIN', '注册')
-  const description = siteConfig(
-    'STARTER_SIGNIN_DESCRITION',
-    '这里是演示页面，NotionNext目前不提供会员注册功能'
-  )
-  return (
-    <>
-      <div className='grow mt-20'>
-        {/* clerk预置表单 */}
-        <div className='flex justify-center py-6'>
-          <SignUp />
-        </div>
-      </div>
-    </>
-  )
-}
-
 export {
   Layout404,
-  LayoutSignUp,
-  LayoutSignIn,
   LayoutArchive,
   LayoutBase,
   LayoutCategoryIndex,
